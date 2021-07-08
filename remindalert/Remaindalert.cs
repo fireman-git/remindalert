@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -18,12 +19,12 @@ class Remaindalert
     {
         ResidentAlarm rm = new ResidentAlarm();
 
-        Application.Run();
+        System.Windows.Forms.Application.Run();
     }
 
     //ログオフ、シャットダウンしようとしているとき
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
-    private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
+    /*private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
     {
         if (e.Reason == SessionEndReasons.Logoff
             || e.Reason == SessionEndReasons.SystemShutdown)
@@ -42,13 +43,34 @@ class Remaindalert
                 System.Environment.Exit(0);
             }
         }
+    }*/
+
+    public partial class App : System.Windows.Application
+    {
+        void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            
+                if (System.Windows.Forms.MessageBox.Show("体調チェックシートの入力は終わりましたか？",
+                "質問", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                {
+                    //キャンセルする
+                    e.Cancel = true;
+                    //アンケートへアクセス
+                    Process.Start(ConfigurationManager.AppSettings.Get("sheetUrl"));
+                }
+                else
+                {
+                    //終了
+                    System.Environment.Exit(0);
+                }
+        }
     }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 
     //指定時間到達
     public void RegularConfirmation()
     {
-        switch (MessageBox.Show("体調チェックシートの入力は終わりましたか？",
+        switch (System.Windows.Forms.MessageBox.Show("体調チェックシートの入力は終わりましたか？",
             "質問", MessageBoxButtons.YesNoCancel))
         {
             case DialogResult.Yes:
