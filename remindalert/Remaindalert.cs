@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
-using System.Windows;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 /*参照URL
 * http://pineplanter.moo.jp/non-it-salaryman/2017/06/01/c-sharp-tasktray/
@@ -12,116 +7,21 @@ using Microsoft.Win32;
 * 
 */
 
-
-class Remaindalert
-{
-    static void Main(string[] args)
+namespace remindalert
+{    class Remaindalert
     {
-        ResidentAlarm rm = new ResidentAlarm();
-
-        System.Windows.Forms.Application.Run();
-    }
-
-    //ログオフ、シャットダウンしようとしているとき
-#pragma warning disable CA1416 // プラットフォームの互換性を検証
-    /*private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
-    {
-        if (e.Reason == SessionEndReasons.Logoff
-            || e.Reason == SessionEndReasons.SystemShutdown)
+        /// <summary>
+        /// アプリケーションのメイン エントリ ポイントです。
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            if (MessageBox.Show("体調チェックシートの入力は終わりましたか？",
-            "質問", MessageBoxButtons.YesNo) == DialogResult.No)
-            {
-                //キャンセルする
-                e.Cancel = true;
-                //アンケートへアクセス
-                Process.Start(ConfigurationManager.AppSettings.Get("sheetUrl"));
-            }
-            else
-            {
-                //終了
-                System.Environment.Exit(0);
-            }
-        }
-    }*/
-
-    public partial class App : System.Windows.Application
-    {
-        void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            
-                if (System.Windows.Forms.MessageBox.Show("体調チェックシートの入力は終わりましたか？",
-                "質問", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
-                {
-                    //キャンセルする
-                    e.Cancel = true;
-                    //アンケートへアクセス
-                    Process.Start(ConfigurationManager.AppSettings.Get("sheetUrl"));
-                }
-                else
-                {
-                    //終了
-                    System.Environment.Exit(0);
-                }
-        }
-    }
-#pragma warning restore CA1416 // プラットフォームの互換性を検証
-
-    //指定時間到達
-    public void RegularConfirmation()
-    {
-        switch (System.Windows.Forms.MessageBox.Show("体調チェックシートの入力は終わりましたか？",
-            "質問", MessageBoxButtons.YesNoCancel))
-        {
-            case DialogResult.Yes:
-                //終了
-                System.Environment.Exit(0);
-                break;
-
-            case DialogResult.No:
-                //アンケートへアクセス
-                Process.Start(ConfigurationManager.AppSettings.Get("sheetUrl"));
-                break;
-
-            case DialogResult.Cancel:
-                break;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            new Form1();
+            Application.Run();
         }
     }
 }
 
-//常駐
-class ResidentAlarm : Form
-{
-    public ResidentAlarm()
-    {
-        Remaindalert ra = new Remaindalert();
-        DateTime dt = DateTime.Now;
-        string[] times = ConfigurationManager.AppSettings.Get("time").Split(',');
 
-        this.ShowInTaskbar = false;
-        this.setComponents();
-
-        while (true)
-        {
-            foreach (var item in times)
-            {
-                if (dt.Hour + ":" + dt.Minute == item)
-                {
-                    ra.RegularConfirmation();
-                    //1分の間に複数ウィンドウが立ち上がるのを防止するため1分停止
-                    System.Threading.Thread.Sleep(60000);
-                }
-            }
-            dt = DateTime.Now;
-        }
-    }
-    private void setComponents()
-    {
-        NotifyIcon icon = new NotifyIcon();
-        icon.Icon = new Icon("Icon1.ico");
-        icon.Visible = true;
-        icon.Text = "体調チェックシート記入忘れ防止アラーム";
-        ContextMenuStrip menu = new ContextMenuStrip();
-        icon.ContextMenuStrip = menu;
-    }
-}
