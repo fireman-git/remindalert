@@ -74,7 +74,7 @@ class ResidentAlarm : Form
     {
         Remaindalert ra = new Remaindalert();
         DateTime dt = DateTime.Now;
-        string[] times = ConfigurationManager.AppSettings.GetValues("time");
+        string[] times = ConfigurationManager.AppSettings.Get("time").Split(',');
 
         this.ShowInTaskbar = false;
         this.setComponents();
