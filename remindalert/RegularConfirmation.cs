@@ -10,7 +10,7 @@ namespace remindalert
         public void ShowQuestion(MessageBoxButtons buttonStyle)
         {
             switch (MessageBox.Show("体調チェックシートの入力は終わりましたか？",
-                "質問", buttonStyle))
+                "体調チェックシート記入忘れ防止アラーム", buttonStyle))
             {
                 case DialogResult.Yes:
                     //終了
