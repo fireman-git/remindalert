@@ -54,7 +54,7 @@ namespace remindalert
             if (e.Reason == SessionEndReasons.Logoff
                 || e.Reason == SessionEndReasons.SystemShutdown)
             {
-                //シャットダウンをキャンセルする
+                //シャットダウンを邪魔する
                 e.Cancel = true;
                 RegularConfirmation rc = new RegularConfirmation();
                 rc.ShowQuestion(MessageBoxButtons.YesNo);

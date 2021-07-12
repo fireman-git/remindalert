@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		remindalert\bin\Debug\Icon1.ico = remindalert\bin\Debug\Icon1.ico
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{1745E69E-9BF0-4B66-9982-7C2C1EB34E26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,8 @@ Global
 		{ADC54B6A-0F9D-48B5-B1D7-91F3975441CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC54B6A-0F9D-48B5-B1D7-91F3975441CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC54B6A-0F9D-48B5-B1D7-91F3975441CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1745E69E-9BF0-4B66-9982-7C2C1EB34E26}.Debug|Any CPU.ActiveCfg = Debug
+		{1745E69E-9BF0-4B66-9982-7C2C1EB34E26}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

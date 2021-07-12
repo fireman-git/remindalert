@@ -18,7 +18,7 @@ namespace remindalert
                     break;
 
                 case DialogResult.No:
-                    //アンケートへアクセス
+                    //アンケートへアクセス後終了
                     Process.Start(ConfigurationManager.AppSettings.Get("sheetUrl"));
                     Application.Exit();
                     break;
