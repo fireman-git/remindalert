@@ -18,7 +18,7 @@ namespace remindalert
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new Form1();
+            _ = new FrmMain();
             Application.Run();
         }
     }
