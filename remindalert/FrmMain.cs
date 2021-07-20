@@ -42,7 +42,7 @@ namespace remindalert
                 if (dt.Hour + ":" + dt.Minute == item)
                 {
                     RegularConfirmation rc = new RegularConfirmation();
-                    rc.ShowQuestion(MessageBoxButtons.YesNoCancel);
+                    rc.ShowQuestion();
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace remindalert
                 //シャットダウンを邪魔する
                 e.Cancel = true;
                 RegularConfirmation rc = new RegularConfirmation();
-                rc.ShowQuestion(MessageBoxButtons.YesNo);
+                rc.ShowQuestion();
             }
         }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
